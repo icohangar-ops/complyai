@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ComplyAI</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>⚖️ ComplyAI</h1>
+      <p class="subtitle">Fintech Compliance Checker</p>
+    </header>
+
+    <main>
+      <!-- Scan Button -->
+      <button id="scanBtn" class="btn-primary">
+        🔍 Scan This Page
+      </button>
+
+      <!-- Loading State -->
+      <div id="loading" class="hidden">
+        <div class="spinner"></div>
+        <p>Analyzing page content...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="error" class="hidden message error-msg">
+        <p><strong>⚠️ Error</strong></p>
+        <p id="errorText"></p>
+        <button id="retryBtn" class="btn-small">Retry</button>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="hidden">
+        <div id="scoreSection">
+          <h2>Compliance Score</h2>
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120" class="score-svg">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="8" />
+              <circle id="scoreArc" cx="60" cy="60" r="54" fill="none" stroke="#22c55e" stroke-width="8"
+                      stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="0"
+                      transform="rotate(-90 60 60)" />
+            </svg>
+            <span id="scoreValue" class="score-value">100</span>
+          </div>
+        </div>
+
+        <div id="summarySection" class="section">
+          <h3>Issues Found</h3>
+          <div id="summaryBadges" class="badge-row">
+            <span id="criticalCount" class="badge badge-critical">0 Critical</span>
+            <span id="highCount" class="badge badge-high">0 High</span>
+            <span id="mediumCount" class="badge badge-medium">0 Medium</span>
+            <span id="lowCount" class="badge badge-low">0 Low</span>
+          </div>
+        </div>
+
+        <div id="flagsSection" class="section">
+          <h3>Flagged Items</h3>
+          <div id="flagsList"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p class="footer-text">Results are for reference only. Not legal advice.</p>
+      <p class="footer-text" id="serverStatus">Server: <span id="serverDot" class="dot dot-offline">●</span> <span id="serverLabel">Checking...</span></p>
+    </footer>
+
+    <div id="noServerMsg" class="hidden message warning-msg">
+      <p><strong>Backend not running</strong></p>
+      <p>Start the API server: <code>uvicorn app:app --port 8787</code></p>
+      <button id="refreshServerBtn" class="btn-small">Retry Connection</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
